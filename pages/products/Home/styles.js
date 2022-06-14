@@ -36,6 +36,15 @@ const styles = StyleSheet.create({
     color: COLORS.black,
     letterSpacing: 1,
   },
+
+  titleText: {
+    fontSize: 16,
+    padding: 16,
+    paddingBottom: 0,
+    color: COLORS.black,
+    fontWeight: 'bold',
+    letterSpacing: 1,
+  },
 });
 
 export default styles;

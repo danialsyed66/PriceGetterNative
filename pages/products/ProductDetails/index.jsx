@@ -24,11 +24,11 @@ const ProductDetails = () => {
 
   const addToCart = async id => {
     try {
-      const cartString = await asyncStorage.getItem('cart');
+      const cartString = await asyncStorage.getItem('cartItems');
       const cart = JSON.parse(cartString || '[]');
 
       await asyncStorage.setItem(
-        'cart',
+        'cartItems',
         JSON.stringify([...new Set([...cart, id])])
       );
 

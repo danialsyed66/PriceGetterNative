@@ -18,7 +18,7 @@ const Cart = () => {
 
   const getData = async () => {
     try {
-      const cartString = await asyncStorage.getItem('cart');
+      const cartString = await asyncStorage.getItem('cartItems');
       const cart = JSON.parse(cartString || '[]');
 
       setProducts(Items.filter(item => cart.includes(item.id)));
@@ -29,11 +29,11 @@ const Cart = () => {
 
   const removeItemFromCart = async id => {
     try {
-      const cartString = await asyncStorage.getItem('cart');
+      const cartString = await asyncStorage.getItem('cartItems');
       const cart = JSON.parse(cartString || '[]');
 
       await asyncStorage.setItem(
-        'cart',
+        'cartItems',
         JSON.stringify(cart.filter(val => val !== id))
       );
 
@@ -49,7 +49,7 @@ const Cart = () => {
 
   const checkOut = async () => {
     try {
-      await asyncStorage.removeItem('cart');
+      await asyncStorage.removeItem('cartItems');
 
       alert('Success', 'Items will be Deliverd SOON!');
 

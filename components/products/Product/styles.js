@@ -19,8 +19,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   image: {
-    width: '80%',
-    height: '80%',
+    width: '100%',
+    height: '100%',
     resizeMode: 'contain',
   },
   discount: {
@@ -34,6 +34,7 @@ const styles = StyleSheet.create({
     borderBottomRightRadius: 10,
     alignItems: 'center',
     justifyContent: 'center',
+    zIndex: 1,
   },
   discountText: {
     fontSize: 12,
