@@ -7,7 +7,8 @@ import { MaterialCommunityIcons } from 'react-native-vector-icons';
 import styles from './styles';
 import { Items } from '../../../database/Database';
 import { alert } from '../../../utils';
-import { BottomButton } from '../../../components';
+import { BottomButton, Header, Nav } from '../../../components';
+import { useAuthRedirect, useNavigetionListener } from '../../../hooks';
 
 const Cart = () => {
   const navigation = useNavigation();
@@ -15,6 +16,8 @@ const Cart = () => {
   const [products, setProducts] = useState([]);
   const [total, setTotal] = useState(0);
   const [quantity, setQuantity] = useState(1);
+
+  // useAuthRedirect();
 
   const getData = async () => {
     try {
@@ -126,13 +129,13 @@ const Cart = () => {
     setTotal(products.reduce((prev, curr) => (prev += curr.productPrice), 0));
   }, [products]);
 
-  useEffect(() => {
-    navigation.addListener('focus', getData);
-  }, [navigation]);
+  useNavigetionListener(getData);
 
   return (
     <View style={styles.container}>
-      <ScrollView>
+      <Header title="Cart" />
+
+      <ScrollView showsVerticalScrollIndicator={false}>
         <Text style={styles.title}>Order Details</Text>
         <View style={styles.cartContainer}>{renderCart()}</View>
 
@@ -200,6 +203,8 @@ const Cart = () => {
         onPress={() => (total !== 0 ? checkOut() : null)}
         text={`CHECKOUT (Rs. ${total})`}
       />
+
+      <Nav />
     </View>
   );
 };

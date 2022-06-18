@@ -7,7 +7,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: 0,
     width: '100%',
-    height: '10%',
+    height: '8%',
     backgroundColor: COLORS.white,
     borderColor: COLORS.backgroundMedium,
     borderTopWidth: 1,
@@ -16,8 +16,8 @@ const styles = StyleSheet.create({
     width: '100%',
     flexDirection: 'row',
     justifyContent: 'space-around',
-    // alignItems: 'center',
-    padding: '4%',
+    alignItems: 'center',
+    padding: '2%',
   },
 });
 

@@ -13,8 +13,9 @@ import asyncStorage from '@react-native-async-storage/async-storage';
 
 import styles from './styles';
 import { Items } from '../../../database/Database';
-import { ImageCarousel, BottomButton } from '../../../components';
+import { ImageCarousel, BottomButton, Header, Nav } from '../../../components';
 import { alert } from '../../../utils';
+import { useNavigetionListener } from '../../../hooks';
 
 const ProductDetails = () => {
   const { id } = useRoute().params;
@@ -41,14 +42,18 @@ const ProductDetails = () => {
     }
   };
 
-  useEffect(() => {
-    navigation.addListener('focus', () =>
-      setProduct(Items.find(item => item.id === id))
-    );
-  }, [navigation]);
+  useNavigetionListener(() => setProduct(Items.find(item => item.id === id)));
 
   return (
     <View style={styles.container}>
+      <Header
+        title={
+          productName
+            ? productName?.replace(/^(.{15}[^\s]*).*/, '$1')
+            : 'Product Details'
+        }
+      />
+
       <StatusBar style={styles.statusBar} />
       <ScrollView showsVerticalScrollIndicator={false}>
         <ImageCarousel items={product?.productImageList} />
@@ -85,6 +90,8 @@ const ProductDetails = () => {
         onPress={() => (product.isAvailable ? addToCart(product.id) : null)}
         text={product.isAvailable ? 'Add to cart' : 'Not Avialable'}
       />
+
+      <Nav />
     </View>
   );
 };

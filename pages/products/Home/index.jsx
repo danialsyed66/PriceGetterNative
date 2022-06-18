@@ -1,57 +1,37 @@
-import React, { useEffect, useState } from 'react';
-import {
-  View,
-  Text,
-  ScrollView,
-  StatusBar,
-  ActivityIndicator,
-} from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-import { useDispatch, useSelector } from 'react-redux';
+import React from 'react';
+import { View, Text, ScrollView, StatusBar } from 'react-native';
+import { useSelector } from 'react-redux';
 
 import styles from './styles';
-import { Items } from '../../../database/Database';
-import { Carousel } from '../../../components';
+import {
+  Carousel,
+  Category,
+  Loader,
+  Logo,
+  Nav,
+  Search,
+} from '../../../components';
 
 const Home = () => {
-  const dispatch = useDispatch();
-  const navigation = useNavigation();
-
-  const [products, setProducts] = useState([]);
-  const [accessories, setAccessories] = useState([]);
-
   const { home, loading } = useSelector(state => state.home);
-
-  const getData = () => {
-    setProducts([]);
-    setAccessories([]);
-    Items.forEach(item => {
-      if (item.category === 'accessory')
-        return setAccessories(accessories => [...accessories, item]);
-
-      setProducts(products => [...products, item]);
-    });
-  };
-
-  useEffect(() => {
-    navigation.addListener('focus', getData);
-  }, [navigation]);
 
   return (
     <View style={styles.container}>
       <StatusBar style={styles.statusBar} />
       <ScrollView showsVerticalScrollIndicator={false}>
+        <Logo />
+
         <View style={styles.about}>
-          <Text style={styles.aboutTitle}>Hi-Fi Shop & Service</Text>
-          <Text style={styles.aboutSubtitle}>
-            {
-              'Audio on Rustaveli Ave 57\nThis shop offers both products and services'
-            }
+          <Text style={styles.aboutTitle}>
+            Let's find and compare prices accross different E-commerce Stores
           </Text>
+          <Search />
         </View>
 
+        <Category />
+
         {loading || !home?.categories ? (
-          <ActivityIndicator size="large" color="#00ff00" />
+          <Loader />
         ) : (
           <>
             {home?.recommended && (
@@ -171,6 +151,8 @@ const Home = () => {
           </>
         )}
       </ScrollView>
+
+      <Nav />
     </View>
   );
 };

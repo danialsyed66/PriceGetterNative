@@ -12,12 +12,7 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.white,
     barStyle: 'dark-content',
   },
-  icons: {
-    width: '100%',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    padding: 16,
-  },
+
   about: {
     marginBottom: 10,
     padding: 16,
@@ -26,7 +21,8 @@ const styles = StyleSheet.create({
     fontSize: 26,
     fontWeight: '500',
     marginBottom: 10,
-    color: COLORS.black,
+    // color: COLORS.black,
+    color: '#315672',
     letterSpacing: 1,
   },
   aboutSubtitle: {

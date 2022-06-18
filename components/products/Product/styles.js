@@ -36,6 +36,16 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     zIndex: 1,
   },
+  heartContainer: {
+    position: 'absolute',
+    width: '13%',
+    height: '26%',
+    top: 2,
+    right: 4,
+    alignItems: 'center',
+    justifyContent: 'center',
+    zIndex: 1,
+  },
   discountText: {
     fontSize: 12,
     fontWeight: 'bold',
@@ -56,6 +66,16 @@ const styles = StyleSheet.create({
   },
   stock: { fontSize: 12, marginRight: 6 },
   stockIcon: { fontSize: 12 },
+  heartIcon: { fontSize: 17, color: COLORS.red },
+
+  infoSeller: { display: 'flex', flexDirection: 'row' },
+  info: { width: '65%' },
+  seller: { width: '35%' },
+  sellerImage: {
+    width: '100%',
+    height: 50,
+    resizeMode: 'contain',
+  },
 });
 
 export default styles;

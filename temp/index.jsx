@@ -3,12 +3,12 @@ import { View, Text } from 'react-native';
 
 import styles from './styles';
 
-const StyledButton = () => {
+const SignIn = () => {
   return (
     <View style={styles.container}>
-      <Text></Text>
+      <Text>SignIn</Text>
     </View>
   );
 };
 
-export default StyledButton;
+export default SignIn;

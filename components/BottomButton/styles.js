@@ -5,7 +5,7 @@ import { COLORS } from '../../utils';
 const styles = StyleSheet.create({
   container: {
     position: 'absolute',
-    bottom: 8,
+    bottom: '9%',
     height: '8%',
     width: '100%',
     justifyContent: 'center',
@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
   buttonTouch: {
     width: '86%',
     height: '90%',
-    backgroundColor: COLORS.blue,
+    backgroundColor: COLORS.green,
     borderRadius: 20,
     justifyContent: 'center',
     alignItems: 'center',

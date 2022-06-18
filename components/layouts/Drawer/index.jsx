@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { View, Text, TouchableOpacity, Button } from 'react-native';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
 
-import Icon from '../Icon';
+import Icon from '../../Icon';
 
 import styles from './styles';
 
