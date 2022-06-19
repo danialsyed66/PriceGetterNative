@@ -128,3 +128,4 @@ dist
 .yarn/install-state.gz
 .pnp.*
 package-lock.json
+.expo/packager-info.json
