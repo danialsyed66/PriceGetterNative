@@ -1,8 +1,6 @@
 import { Dimensions, StyleSheet } from 'react-native';
 
-import { images, FONTS, SIZES, COLORS } from '../../../utils';
-
-const calPercentage = (total, percent) => (percent * total) / 100;
+import { FONTS, SIZES, COLORS } from '../../../utils';
 
 const styles = StyleSheet.create({
   container: {
@@ -22,6 +20,10 @@ const styles = StyleSheet.create({
   logoTouch: {
     height: 100,
     width: 200,
+  },
+  profileTouch: {
+    height: 150,
+    width: 150,
   },
 
   titleContainer: {

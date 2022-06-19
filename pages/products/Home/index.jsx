@@ -13,7 +13,8 @@ import {
 } from '../../../components';
 
 const Home = () => {
-  const { home, loading } = useSelector(state => state.home);
+  const { home } = useSelector(state => state.home);
+  const { isAuth } = useSelector(state => state.auth);
 
   return (
     <View style={styles.container}>
@@ -23,18 +24,19 @@ const Home = () => {
 
         <View style={styles.about}>
           <Text style={styles.aboutTitle}>
-            Let's find and compare prices accross different E-commerce Stores
+            Let&apos;s find and compare prices accross different E-commerce
+            Stores
           </Text>
           <Search />
         </View>
 
         <Category />
 
-        {loading || !home?.categories ? (
+        {!home?.categories ? (
           <Loader />
         ) : (
           <>
-            {home?.recommended && (
+            {isAuth && home?.recommended && (
               <Carousel
                 title="Recommended for you!"
                 renderFor="recommended"
@@ -44,12 +46,6 @@ const Home = () => {
 
             <Text style={styles.titleText}>Products by Categories</Text>
 
-            <Carousel
-              title="Escape the real world with a Book!"
-              renderFor="category"
-              items={home?.recommended?.recommended}
-              condition={home?.categories?.food?.condition}
-            />
             <Carousel
               title="Escape the real world with a Book!"
               renderFor="category"

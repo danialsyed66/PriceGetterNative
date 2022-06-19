@@ -5,8 +5,8 @@ import styles from './styles';
 import PriceGetter from '../../assets/PriceGetter.png';
 import { useNavigation } from '@react-navigation/native';
 
-const Logo = ({ touchStyles }) => {
-  const { navigate } = useNavigation;
+const Logo = ({ touchStyles, source }) => {
+  const { navigate } = useNavigation();
 
   return (
     <View style={styles.container}>
@@ -14,7 +14,17 @@ const Logo = ({ touchStyles }) => {
         style={touchStyles || styles.touch}
         onPress={() => navigate('Home')}
       >
-        <Image style={styles.logo} source={PriceGetter} />
+        <Image
+          style={[
+            styles.logo,
+            source
+              ? {
+                  borderRadius: 100,
+                }
+              : {},
+          ]}
+          source={source || PriceGetter}
+        />
       </TouchableOpacity>
     </View>
   );

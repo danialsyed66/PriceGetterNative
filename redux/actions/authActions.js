@@ -143,7 +143,7 @@ export const loadUser = () => async dispatch => {
 
 export const logout = () => dispatch => {
   try {
-    asyncStorage.removeItem('token', token);
+    asyncStorage.removeItem('token');
 
     dispatch({
       type: LOGOUT_SUCCESS,

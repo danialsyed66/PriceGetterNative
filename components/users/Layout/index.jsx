@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React from 'react';
 import { View, Text } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
@@ -6,7 +6,7 @@ import styles from './styles';
 import Logo from '../../Logo';
 import { useKeyboardDetector } from '../../../hooks';
 
-const Layout = ({ title, subtitle, titleContainerStyle, children }) => {
+const Layout = ({ title, titleContainerStyle, children, image }) => {
   const [isKeyboardVisible] = useKeyboardDetector(false);
 
   return (
@@ -19,7 +19,10 @@ const Layout = ({ title, subtitle, titleContainerStyle, children }) => {
             : styles.scrollContainer
         }
       >
-        <Logo touchStyles={styles.logoTouch} />
+        <Logo
+          touchStyles={image ? styles.profileTouch : styles.logoTouch}
+          source={image ? { uri: image } : undefined}
+        />
         {/* <Logo /> */}
 
         <View style={[styles.titleContainer, titleContainerStyle]}>

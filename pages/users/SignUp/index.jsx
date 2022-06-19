@@ -10,10 +10,16 @@ import {
 import { Entypo, AntDesign } from 'react-native-vector-icons';
 import * as ImagePicker from 'expo-image-picker';
 import { Fontisto } from 'react-native-vector-icons';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import styles from './styles';
-import { AuthLayout, FormInput, Nav, TextButton } from '../../../components';
+import {
+  AuthLayout,
+  FormInput,
+  Loader,
+  Nav,
+  TextButton,
+} from '../../../components';
 import { COLORS, validateEmail, validatePassword } from '../../../utils';
 import DefaultImage from '../../../assets/default_avatar.jpg';
 import { useCheckAuth } from '../../../hooks';

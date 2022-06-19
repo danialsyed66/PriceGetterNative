@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
 
-import { images, FONTS, SIZES, COLORS } from '../../../utils';
+import { FONTS, SIZES, COLORS } from '../../../utils';
 
 const styles = StyleSheet.create({
   lebelContainer: { flexDirection: 'row', justifyContent: 'space-between' },

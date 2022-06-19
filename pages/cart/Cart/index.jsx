@@ -8,7 +8,7 @@ import styles from './styles';
 import { Items } from '../../../database/Database';
 import { alert } from '../../../utils';
 import { BottomButton, Header, Nav } from '../../../components';
-import { useAuthRedirect, useNavigetionListener } from '../../../hooks';
+import { useNavigetionListener } from '../../../hooks';
 
 const Cart = () => {
   const navigation = useNavigation();
@@ -16,8 +16,6 @@ const Cart = () => {
   const [products, setProducts] = useState([]);
   const [total, setTotal] = useState(0);
   const [quantity, setQuantity] = useState(1);
-
-  // useAuthRedirect();
 
   const getData = async () => {
     try {

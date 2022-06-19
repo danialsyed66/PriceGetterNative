@@ -15,4 +15,5 @@ export { default as FormInput } from './users/FormInput';
 export { default as Icon } from './Icon';
 export { default as BottomButton } from './BottomButton';
 export { default as TextButton } from './TextButton';
+export { default as IconButton } from './IconButton';
 export { default as Logo } from './Logo';

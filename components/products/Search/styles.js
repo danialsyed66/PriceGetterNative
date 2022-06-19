@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
 
-import { images, FONTS, SIZES, COLORS } from '../../../utils';
+import { SIZES, COLORS } from '../../../utils';
 
 const styles = StyleSheet.create({
   container: { flexDirection: 'row', justifyContent: 'center' },

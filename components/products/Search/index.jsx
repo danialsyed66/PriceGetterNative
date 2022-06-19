@@ -1,9 +1,9 @@
 import React from 'react';
-import { View, TextInput, TouchableOpacity, Image } from 'react-native';
+import { View, TextInput, TouchableOpacity } from 'react-native';
 import { Feather } from 'react-native-vector-icons';
 
 import styles from './styles';
-import { COLORS, ICONS } from '../../../utils';
+import { COLORS } from '../../../utils';
 import TextButton from '../../TextButton';
 
 const FormInput = ({

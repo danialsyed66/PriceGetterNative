@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, Image } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+// import { useNavigation } from '@react-navigation/native';
 import { Feather } from 'react-native-vector-icons';
 
 import styles from './styles';
 import icons from './icons';
 import Icon from '../../Icon';
-import { setFilters } from '../../../redux/actions/filterActions';
+// import { setFilters } from '../../../redux/actions/filterActions';
 
 const Category = () => {
-  const { navigate } = useNavigation();
+  // const { navigate } = useNavigation();
 
   const handleNavigate = category => {
     // dispatch(setFilters({ categories: [category] }));

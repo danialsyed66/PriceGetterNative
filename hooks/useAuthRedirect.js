@@ -1,8 +1,6 @@
 import { useNavigation } from '@react-navigation/native';
 import { useEffect } from 'react';
-import { createIconSetFromFontello } from 'react-native-vector-icons';
 import { useSelector } from 'react-redux';
-import useNavigetionListener from './useNavigetionListener';
 
 const useAuthRedirect = () => {
   const navigation = useNavigation();

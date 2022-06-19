@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, TouchableOpacity, Alert } from 'react-native';
+import { View, Text, TouchableOpacity } from 'react-native';
 import { Entypo, AntDesign } from 'react-native-vector-icons';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
@@ -12,7 +12,7 @@ import {
   Nav,
   TextButton,
 } from '../../../components';
-import { alert, COLORS, validateEmail } from '../../../utils';
+import { COLORS, validateEmail } from '../../../utils';
 import { login } from '../../../redux/actions/authActions';
 import { useCheckAuth } from '../../../hooks';
 
@@ -116,7 +116,9 @@ const SignIn = () => {
             <TextButton onPress={handleLogin} text="Sign In" />
 
             <View style={styles.signUpContainer}>
-              <Text style={styles.signUpText}>Don't have an account? </Text>
+              <Text style={styles.signUpText}>
+                Don&apos;t have an account?{' '}
+              </Text>
 
               <TextButton
                 onPress={() => navigate('Sign Up')}

@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import {
   Home,
@@ -20,10 +20,15 @@ const Stack = createNativeStackNavigator();
 export default function App() {
   const dispatch = useDispatch();
 
+  const { isAuth } = useSelector(state => state.auth);
+
   useEffect(() => {
-    dispatch(getHome());
     dispatch(init());
   }, []);
+
+  useEffect(() => {
+    dispatch(getHome());
+  }, [isAuth]);
 
   return (
     <NavigationContainer>

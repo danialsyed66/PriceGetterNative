@@ -1,13 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import { useNavigation } from '@react-navigation/native';
+import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, Button } from 'react-native';
-import EvilIcons from 'react-native-vector-icons/EvilIcons';
+// import EvilIcons from 'react-native-vector-icons/EvilIcons';
 
-import Icon from '../../Icon';
+// import Icon from '../../Icon';
 
 import styles from './styles';
 
 const DrawerCustom = () => {
   const [drawerShow, setDrawerShow] = useState(false);
+  const { navigate } = useNavigation();
 
   return (
     <View>
@@ -33,7 +35,7 @@ const DrawerCustom = () => {
           style={styles.drawerItem}
           onPress={() => {
             setDrawerShow(false);
-            navigation.navigate('Home');
+            navigate('Home');
           }}
         >
           <Text style={styles.drawerText}>Home</Text>
@@ -42,7 +44,7 @@ const DrawerCustom = () => {
           style={styles.drawerItem}
           onPress={() => {
             setDrawerShow(false);
-            navigation.navigate('Home');
+            navigate('Home');
           }}
         >
           <Text style={styles.drawerText}>Product</Text>
@@ -51,7 +53,7 @@ const DrawerCustom = () => {
           style={styles.drawerItem}
           onPress={() => {
             setDrawerShow(false);
-            navigation.navigate('Cart');
+            navigate('Cart');
           }}
         >
           <Text style={styles.drawerText}>Cart</Text>

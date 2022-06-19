@@ -12,7 +12,6 @@ const styles = StyleSheet.create({
   logo: {
     height: '100%',
     width: '100%',
-    // resizeMode: 'center',
   },
 });
 

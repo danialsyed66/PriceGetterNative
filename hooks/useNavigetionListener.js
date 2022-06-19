@@ -5,9 +5,7 @@ const useNavigetionListener = func => {
   const navigation = useNavigation();
 
   useEffect(() => {
-    const navigetionListener = navigation.addListener('focus', func);
-
-    // return () => navigetionListener.remove();
+    navigation.addListener('focus', func);
   }, [navigation]);
 };
 
