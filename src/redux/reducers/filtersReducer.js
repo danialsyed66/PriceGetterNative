@@ -24,6 +24,7 @@ const reducer = (
         sellers: [],
         categories: [],
         sort: [],
+        newReq: true,
         ...payload,
       };
 

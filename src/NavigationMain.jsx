@@ -16,6 +16,7 @@ import {
 } from './pages';
 import { init } from './redux/actions/initAction';
 import { getHome } from './redux/actions/homeActions';
+import { useErrorsAlert } from './hooks';
 
 const Stack = createNativeStackNavigator();
 
@@ -23,6 +24,8 @@ export default function App() {
   const dispatch = useDispatch();
 
   const { isAuth } = useSelector(state => state.auth);
+
+  useErrorsAlert();
 
   useEffect(() => {
     dispatch(init());

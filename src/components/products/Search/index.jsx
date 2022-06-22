@@ -17,6 +17,7 @@ const FormInput = ({
   keyboardType = 'default',
   autoCompleteType = 'off',
   autoCapitalize = 'none',
+  setSearch,
 }) => {
   const { navigate } = useNavigation();
   const dispatch = useDispatch();
@@ -56,6 +57,10 @@ const FormInput = ({
         containerStyle={styles.searchContainer}
         touchStyle={styles.searchTouch}
         onPress={() => {
+          if (setSearch) {
+            return dispatch(setFilters({ query }));
+          }
+
           dispatch(setFilters({ query }));
           navigate('Filter', { nav: true });
         }}

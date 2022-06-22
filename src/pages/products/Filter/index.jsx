@@ -53,6 +53,7 @@ const Filter = () => {
   const [rating /*,setRating*/] = useState(leastRating);
   const [seller, setSeller] = useState(sellers);
   const [category, setCategory] = useState(categories);
+  const [search, setSearch] = useState(query);
   const [sortObj, setSortObj] = useState({ val: sort[0], order: sort[1] });
 
   // const [priceRadio, setPriceRadio] = useState(0);
@@ -88,8 +89,8 @@ const Filter = () => {
       return dispatch(
         updateFilters({
           page: currentPage,
-          query,
-          categories,
+          query: search,
+          categories: category,
           price: priceRange,
           leastRating: rating,
           sellers: seller,
@@ -104,8 +105,8 @@ const Filter = () => {
       dispatch(
         updateFilters({
           page: currentPage,
-          query,
-          categories,
+          query: search,
+          categories: category,
           price: priceRange,
           leastRating: rating,
           sellers: seller,
@@ -127,8 +128,8 @@ const Filter = () => {
   }, [
     dispatch,
     currentPage,
-    query,
-    categories,
+    search,
+    category,
     priceRange,
     rating,
     seller,
@@ -155,10 +156,10 @@ const Filter = () => {
     dispatch,
     page,
     query,
+    categories,
     // price,
     // leastRating,
     // sellers,
-    // categories,
     // sort,
     // onSale,
     // discount,
@@ -167,30 +168,24 @@ const Filter = () => {
   const renderHead = () => (
     <>
       <View style={styles.about}>
-        <Search />
+        <Search setSearch={setSearch} />
       </View>
-      <Category />
+      <Category setCategory={setCategory} />
     </>
   );
 
   return (
     <View style={styles.container}>
       <Header title="Filter Page" />
-      {/* <StatusBar style={styles.statusBar} /> */}
-      {/* <ScrollView
-        showsVerticalScrollIndicator={false}
-        ref={scrollRef}
-        contentContainerStyle={{
-          // justifyContent: 'center',
-          // alignItems: 'center',
-        }}
-      > */}
+      <StatusBar style={styles.statusBar} />
       {length ? (
         <>
           {newReq && loading ? (
-            <Loader />
+            <>
+              {renderHead()}
+              <Loader />
+            </>
           ) : (
-            // <View style={styles.itemsContainer}>
             <FlatList
               data={products}
               onEndReached={loadMore}
@@ -212,13 +207,13 @@ const Filter = () => {
                 </View>
               }
             />
-            // </View>
           )}
         </>
-      ) : (
+      ) : loading ? (
         <Loader />
+      ) : (
+        renderHead()
       )}
-      {/* </ScrollView> */}
 
       <Nav />
     </View>

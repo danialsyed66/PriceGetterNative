@@ -37,11 +37,13 @@ const reducer = (state = { products: [] }, { type, payload }) => {
           return {
             ...state,
             error: null,
+            loading: false,
             products: [],
           };
 
       return {
         ...state,
+        loading: false,
         error: null,
       };
     default:

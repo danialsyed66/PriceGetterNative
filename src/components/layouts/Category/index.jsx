@@ -10,11 +10,15 @@ import icons from './icons';
 import Icon from '../../Icon';
 import { setFilters } from '../../../redux/actions/filterActions';
 
-const Category = () => {
+const Category = ({ setCategory }) => {
   const { navigate } = useNavigation();
   const dispatch = useDispatch();
 
   const handleNavigate = category => {
+    if (setCategory) {
+      return dispatch(setFilters({ categories: [category] }));
+    }
+
     dispatch(setFilters({ categories: [category] }));
     navigate('Filter', { nav: true });
   };
