@@ -5,10 +5,12 @@ import { useNavigation } from '@react-navigation/native';
 import { MaterialCommunityIcons } from 'react-native-vector-icons';
 
 import styles from './styles';
-import { Items } from '../../../database/Database';
+// import { Items } from '../../../database/Database';
 import { alert } from '../../../utils';
 import { BottomButton, Header, Nav } from '../../../components';
 import { useNavigetionListener } from '../../../hooks';
+
+const Items = [];
 
 const Cart = () => {
   const navigation = useNavigation();

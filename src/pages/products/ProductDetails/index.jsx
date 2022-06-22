@@ -12,10 +12,12 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import asyncStorage from '@react-native-async-storage/async-storage';
 
 import styles from './styles';
-import { Items } from '../../../database/Database';
+// import { Items } from '../../../database/Database';
 import { ImageCarousel, BottomButton, Header, Nav } from '../../../components';
 import { alert } from '../../../utils';
 import { useNavigetionListener } from '../../../hooks';
+
+const Items = [];
 
 const ProductDetails = () => {
   const { id } = useRoute().params;
