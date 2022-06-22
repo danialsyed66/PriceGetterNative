@@ -38,7 +38,13 @@ const Nav = () => {
                   ['Home', 'Product Details'].includes(routeName) && active
                 }
               />
-              <Icon element={Fontisto} name="shopping-sale" type="primary" />
+              <Icon
+                element={Fontisto}
+                name="shopping-sale"
+                type="primary"
+                onPress={() => navigate('Filter')}
+                style={['Filter'].includes(routeName) && active}
+              />
               <Icon
                 element={AntDesign}
                 name="shoppingcart"

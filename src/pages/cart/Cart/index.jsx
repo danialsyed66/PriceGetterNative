@@ -1,54 +1,31 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, ScrollView, TouchableOpacity, Image } from 'react-native';
+import { View, Text, ScrollView } from 'react-native';
 import asyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
 import { MaterialCommunityIcons } from 'react-native-vector-icons';
+import { useSelector } from 'react-redux';
 
 import styles from './styles';
-// import { Items } from '../../../database/Database';
 import { alert } from '../../../utils';
-import { BottomButton, Header, Nav } from '../../../components';
-import { useNavigetionListener } from '../../../hooks';
-
-const Items = [];
+import { BottomButton, Header, Nav, ProductList } from '../../../components';
 
 const Cart = () => {
   const navigation = useNavigation();
 
-  const [products, setProducts] = useState([]);
-  const [total, setTotal] = useState(0);
-  const [quantity, setQuantity] = useState(1);
+  const { cartItems } = useSelector(state => state.cart);
 
-  const getData = async () => {
-    try {
-      const cartString = await asyncStorage.getItem('cartItems');
-      const cart = JSON.parse(cartString || '[]');
+  const [totalUnits, setTotalUnits] = useState(0);
+  const [totalPrice, setTotalPrice] = useState(0);
 
-      setProducts(Items.filter(item => cart.includes(item.id)));
-    } catch (err) {
-      console.log(err);
-    }
-  };
+  useEffect(() => {
+    const unitsAndPrice = cartItems.reduce(
+      (acc, cur) => [acc[0] + cur.quantity, acc[1] + cur.quantity * cur.price],
+      [0, 0]
+    );
 
-  const removeItemFromCart = async id => {
-    try {
-      const cartString = await asyncStorage.getItem('cartItems');
-      const cart = JSON.parse(cartString || '[]');
-
-      await asyncStorage.setItem(
-        'cartItems',
-        JSON.stringify(cart.filter(val => val !== id))
-      );
-
-      // alert('Success', 'Product removed from cart.');
-
-      // navigation.navigate('Home');
-
-      getData();
-    } catch (err) {
-      console.log(err);
-    }
-  };
+    setTotalUnits(unitsAndPrice[0]);
+    setTotalPrice(unitsAndPrice[1]);
+  }, [cartItems]);
 
   const checkOut = async () => {
     try {
@@ -63,81 +40,19 @@ const Cart = () => {
     }
   };
 
-  const renderCart = () =>
-    products?.map(
-      ({
-        id,
-        category,
-        productName,
-        productPrice,
-        description,
-        isOff,
-        offPercentage,
-        productImage,
-        isAvailable,
-        productImageList,
-      }) => (
-        <TouchableOpacity
-          key={id}
-          style={styles.productContainer}
-          onPress={() => navigation.navigate('Product Details', { id })}
-        >
-          <View style={styles.imageContainer}>
-            <Image source={productImage} style={styles.image} />
-          </View>
-
-          <View style={styles.contentContainer}>
-            <View>
-              <Text style={styles.nameText}>{productName}</Text>
-            </View>
-
-            <View style={styles.priceContainer}>
-              <Text style={styles.priceText}>Rs. {productPrice}</Text>
-            </View>
-
-            <View style={styles.actionsContainer}>
-              <View style={styles.quantityActions}>
-                <TouchableOpacity style={styles.iconContainer}>
-                  <MaterialCommunityIcons
-                    name="minus"
-                    style={styles.icon}
-                    onPress={() => setQuantity(quantity - 1)}
-                  />
-                </TouchableOpacity>
-                <Text style={styles.quantityText}>{quantity}</Text>
-                <TouchableOpacity style={styles.iconContainer}>
-                  <MaterialCommunityIcons
-                    name="plus"
-                    style={styles.icon}
-                    onPress={() => setQuantity(quantity + 1)}
-                  />
-                </TouchableOpacity>
-              </View>
-              <TouchableOpacity onPress={() => removeItemFromCart(id)}>
-                <MaterialCommunityIcons
-                  name="delete-outline"
-                  style={styles.deleteIcon}
-                />
-              </TouchableOpacity>
-            </View>
-          </View>
-        </TouchableOpacity>
-      )
-    );
-
-  useEffect(() => {
-    setTotal(products.reduce((prev, curr) => (prev += curr.productPrice), 0));
-  }, [products]);
-
-  useNavigetionListener(getData);
-
   return (
     <View style={styles.container}>
       <Header title="Cart" />
 
       <ScrollView showsVerticalScrollIndicator={false}>
         <Text style={styles.title}>Order Details</Text>
-        <View style={styles.cartContainer}>{renderCart()}</View>
+        <View style={styles.cartContainer}>
+          <ProductList
+            forCart
+            products={cartItems}
+            message="Your cart is empty."
+          />
+        </View>
 
         <View>
           <View style={styles.infoContainer}>
@@ -185,23 +100,25 @@ const Cart = () => {
             <Text style={styles.infoTitle}>Order Info</Text>
             <View style={styles.orderContent}>
               <Text style={styles.orderInfoTitle}>Subtotal</Text>
-              <Text style={styles.orderInfoText}>Rs. {total}</Text>
+              <Text style={styles.orderInfoText}>Rs. {totalPrice}</Text>
             </View>
             <View style={styles.shippingContainer}>
               <Text style={styles.orderInfoTitle}>Shipping Tax</Text>
-              <Text style={styles.orderInfoText}>Rs. {total / 20}</Text>
+              <Text style={styles.orderInfoText}>Rs. {totalPrice / 20}</Text>
             </View>
             <View style={styles.infoContent}>
               <Text style={styles.orderInfoTitle}>Total</Text>
-              <Text style={styles.total}>Rs. {total + total / 20}</Text>
+              <Text style={styles.total}>
+                Rs. {totalPrice + totalPrice / 20}
+              </Text>
             </View>
           </View>
         </View>
       </ScrollView>
 
       <BottomButton
-        onPress={() => (total !== 0 ? checkOut() : null)}
-        text={`CHECKOUT (Rs. ${total})`}
+        onPress={() => (totalPrice !== 0 ? checkOut() : null)}
+        text={`CHECKOUT (Rs. ${totalPrice})`}
       />
 
       <Nav />

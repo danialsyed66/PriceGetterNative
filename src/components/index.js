@@ -1,5 +1,6 @@
 export { default as Product } from './products/Product';
 export { default as Carousel } from './products/Carousel';
+export { default as ProductList } from './products/ProductList';
 export { default as ImageCarousel } from './products/ImageCarousel';
 export { default as Search } from './products/Search';
 

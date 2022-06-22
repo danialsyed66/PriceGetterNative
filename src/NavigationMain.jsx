@@ -11,6 +11,8 @@ import {
   SignIn,
   SignUp,
   Profile,
+  Wishlist,
+  Filter,
 } from './pages';
 import { init } from './redux/actions/initAction';
 import { getHome } from './redux/actions/homeActions';
@@ -35,11 +37,13 @@ export default function App() {
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         <Stack.Screen name={'Home'} component={Home} />
         <Stack.Screen name={'Product Details'} component={ProductDetails} />
+        <Stack.Screen name={'Filter'} component={Filter} />
         <Stack.Screen name={'Cart'} component={Cart} />
         <Stack.Screen name={'Payment'} component={Payment} />
         <Stack.Screen name={'Sign In'} component={SignIn} />
         <Stack.Screen name={'Sign Up'} component={SignUp} />
         <Stack.Screen name={'Profile'} component={Profile} />
+        <Stack.Screen name={'Wishlist'} component={Wishlist} />
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -1,3 +1,5 @@
+import asyncStorage from '@react-native-async-storage/async-storage';
+
 import {
   ADD_TO_CART,
   REMOVE_FROM_CART,
@@ -5,40 +7,49 @@ import {
   SAVE_SHIPPING_INFO,
 } from '../consts';
 
-export const addToCart = product => (dispatch, getState) => {
+export const addToCart = product => async (dispatch, getState) => {
   dispatch({
     type: ADD_TO_CART,
     payload: product,
   });
 
-  localStorage.setItem('cartItems', JSON.stringify(getState().cart.cartItems));
+  await asyncStorage.setItem(
+    'cartItems',
+    JSON.stringify(getState().cart.cartItems)
+  );
 };
 
-export const removeFromCart = id => (dispatch, getState) => {
+export const removeFromCart = id => async (dispatch, getState) => {
   dispatch({
     type: REMOVE_FROM_CART,
     payload: id,
   });
 
-  localStorage.setItem('cartItems', JSON.stringify(getState().cart.cartItems));
+  await asyncStorage.setItem(
+    'cartItems',
+    JSON.stringify(getState().cart.cartItems)
+  );
 };
 
-export const updateCart = (id, quantity) => (dispatch, getState) => {
+export const updateCart = (id, quantity) => async (dispatch, getState) => {
   dispatch({
     type: UPDATE_CART,
     payload: { id, quantity },
   });
 
-  localStorage.setItem('cartItems', JSON.stringify(getState().cart.cartItems));
+  await asyncStorage.setItem(
+    'cartItems',
+    JSON.stringify(getState().cart.cartItems)
+  );
 };
 
-export const saveShippingInfo = shippingInfo => (dispatch, getState) => {
+export const saveShippingInfo = shippingInfo => async (dispatch, getState) => {
   dispatch({
     type: SAVE_SHIPPING_INFO,
     payload: shippingInfo,
   });
 
-  localStorage.setItem(
+  await asyncStorage.setItem(
     'shippingInfo',
     JSON.stringify(getState().cart.shippingInfo)
   );

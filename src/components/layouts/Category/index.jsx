@@ -2,18 +2,21 @@ import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, Image } from 'react-native';
 // import { useNavigation } from '@react-navigation/native';
 import { Feather } from 'react-native-vector-icons';
+import { useNavigation } from '@react-navigation/native';
+import { useDispatch } from 'react-redux';
 
 import styles from './styles';
 import icons from './icons';
 import Icon from '../../Icon';
-// import { setFilters } from '../../../redux/actions/filterActions';
+import { setFilters } from '../../../redux/actions/filterActions';
 
 const Category = () => {
-  // const { navigate } = useNavigation();
+  const { navigate } = useNavigation();
+  const dispatch = useDispatch();
 
   const handleNavigate = category => {
-    // dispatch(setFilters({ categories: [category] }));
-    // navigate('/filter?nav=true');
+    dispatch(setFilters({ categories: [category] }));
+    navigate('Filter', { nav: true });
   };
 
   const [more, setMore] = useState(false);
@@ -31,7 +34,7 @@ const Category = () => {
               <TouchableOpacity
                 style={styles.itemContainer}
                 key={index}
-                onClick={() => handleNavigate(val)}
+                onPress={() => handleNavigate(val)}
               >
                 <Image source={src} style={styles.image} />
 

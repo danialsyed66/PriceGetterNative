@@ -46,9 +46,9 @@ export const getProducts = filters => async (dispatch, getState) => {
       ${onSale ? `&onSale=true` : ''}
       ${discount?.[0] ? `&discount[gte]=${discount?.[0]}` : ''}
       ${discount?.[1] ? `&discount[lte]=${discount?.[1]}` : ''}
-      ${category.length ? `&category=${category}` : ''}
-      ${sortQuery.length ? `&sort=${sortQuery}` : ''}
-      ${seller.length ? `&seller=${seller}` : ''}`;
+      ${category?.length ? `&category=${category}` : ''}
+      ${sortQuery?.length ? `&sort=${sortQuery}` : ''}
+      ${seller?.length ? `&seller=${seller}` : ''}`;
 
     const {
       data: { data },
@@ -95,13 +95,13 @@ export const getProductDetails = id => async dispatch => {
 
     const {
       data: {
-        data: { product, similar },
+        data: { product, similar, same },
       },
     } = await axios.get(`/api/v1/products/${id}`);
 
     dispatch({
       type: PRODUCT_DETAILS_SUCCESS,
-      payload: { product, similar },
+      payload: { product, similar, same },
     });
   } catch (error) {
     dispatch({

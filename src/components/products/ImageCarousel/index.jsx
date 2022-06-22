@@ -10,7 +10,7 @@ const Carousel = ({ items }) => {
 
   const renderImages = ({ item, index }) => (
     <View style={styles.imageView} key={index}>
-      <Image style={styles.image} source={item} />
+      <Image style={styles.image} source={{ uri: item }} />
     </View>
   );
 
@@ -19,7 +19,7 @@ const Carousel = ({ items }) => {
       {items?.length > 0 && (
         <View style={styles.container}>
           <FlatList
-            data={items}
+            data={items.map(img => img.url)}
             horizontal
             renderItem={renderImages}
             showsHorizontalScrollIndicator={false}

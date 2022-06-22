@@ -1,100 +1,162 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import {
   View,
   Text,
   StatusBar,
   ScrollView,
   TouchableOpacity,
+  Image,
 } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
-import Entypo from 'react-native-vector-icons/Entypo';
-import Ionicons from 'react-native-vector-icons/Ionicons';
+import { Entypo, AntDesign } from 'react-native-vector-icons';
 import asyncStorage from '@react-native-async-storage/async-storage';
+import { useDispatch, useSelector } from 'react-redux';
 
 import styles from './styles';
-// import { Items } from '../../../database/Database';
-import { ImageCarousel, BottomButton, Header, Nav } from '../../../components';
-import { alert } from '../../../utils';
-import { useNavigetionListener } from '../../../hooks';
-
-const Items = [];
+import {
+  ImageCarousel,
+  BottomButton,
+  Header,
+  Nav,
+  Loader,
+  Carousel,
+  ProductList,
+} from '../../../components';
+import { alert, isImage, openUrl } from '../../../utils';
+import { addToCart } from './../../../redux/actions/cartActions';
+import { getProductDetails } from '../../../redux/actions/productActions';
 
 const ProductDetails = () => {
   const { id } = useRoute().params;
-  const navigation = useNavigation();
+  const { navigate } = useNavigation();
+  const dispatch = useDispatch();
 
-  const [product, setProduct] = useState({});
+  const { loading, product, similar, same } = useSelector(
+    state => state.productDetails
+  );
 
-  const addToCart = async id => {
-    try {
-      const cartString = await asyncStorage.getItem('cartItems');
-      const cart = JSON.parse(cartString || '[]');
+  const {
+    _id,
+    name,
+    price,
+    description,
+    images,
+    seller,
+    stock,
+    url,
+    rating,
+    category,
+    noOfReviews,
+    // category,
+    // createdAt,
+    oldPrice,
+    // discount,
+    pricegetter,
+  } = product;
 
-      await asyncStorage.setItem(
-        'cartItems',
-        JSON.stringify([...new Set([...cart, id])])
-      );
+  const handleCart = () => {
+    dispatch(addToCart({ ...product, quantity: 1 }));
 
-      // alert('Success', 'Product added to cart.');
-
-      navigation.navigate('Cart');
-    } catch (err) {
-      console.log(err);
-      alert('Error', 'Could not add to cart.');
-    }
+    navigate('Cart');
   };
 
-  useNavigetionListener(() => setProduct(Items.find(item => item.id === id)));
+  useEffect(() => {
+    dispatch(getProductDetails(id));
+  }, [dispatch, id]);
 
   return (
-    <View style={styles.container}>
-      <Header
-        title={
-          productName
-            ? productName?.replace(/^(.{15}[^\s]*).*/, '$1')
-            : 'Product Details'
-        }
-      />
+    <>
+      {loading || !product ? (
+        <Loader />
+      ) : (
+        <View style={styles.container}>
+          <Header
+            title={
+              name ? name?.replace(/^(.{15}[^\s]*).*/, '$1') : 'Product Details'
+            }
+          />
 
-      <StatusBar style={styles.statusBar} />
-      <ScrollView showsVerticalScrollIndicator={false}>
-        <ImageCarousel items={product?.productImageList} />
-        <View style={styles.scrollViewContainer}>
-          <View style={styles.cartContainer}>
-            <Entypo style={styles.cartIcon} name="shopping-cart" />
-            <Text style={styles.cartText}>Shopping</Text>
-          </View>
-
-          <View style={styles.title}>
-            <Text style={styles.titleText}>{product?.productName}</Text>
-            <Ionicons style={styles.titleIcon} name="link-outline" />
-          </View>
-
-          <Text style={styles.description}>{product?.description}</Text>
-
-          <View style={styles.locationContainer}>
-            <View style={styles.locationIconContainer}>
-              <View style={styles.locationIconContainer2}>
-                <Entypo style={styles.locationIcon} name="location-pin" />
+          <StatusBar style={styles.statusBar} />
+          <ScrollView showsVerticalScrollIndicator={false}>
+            <ImageCarousel items={images} />
+            <View style={styles.scrollViewContainer}>
+              <View style={styles.cartContainer}>
+                <Entypo style={styles.cartIcon} name="shopping-cart" />
+                <Text style={styles.cartText}>Shopping</Text>
               </View>
-              <Text>Rustaveli Ave 57,{'\n'}17-001, Batume</Text>
+
+              <View style={styles.title}>
+                <Text style={styles.titleText}>{name}</Text>
+                <TouchableOpacity
+                  style={styles.seller}
+                  onPress={() =>
+                    openUrl(
+                      url || `https://price-getter.netlify.app/product/${_id}`
+                    )
+                  }
+                >
+                  {isImage(seller?.logo?.url) && (
+                    <Image
+                      style={styles.sellerImage}
+                      source={{ uri: seller?.logo?.url }}
+                    />
+                  )}
+                </TouchableOpacity>
+              </View>
+
+              <Text style={styles.description}>{description}</Text>
+
+              <View style={styles.priceRatingContainer}>
+                {oldPrice ? (
+                  <View style={styles.priceContainer}>
+                    <Text style={styles.priceText}>Rs. {price} </Text>
+                    <Text style={styles.priceTextCrossed}>Rs. {oldPrice}</Text>
+                  </View>
+                ) : (
+                  <Text style={styles.priceText}>Rs. {price} </Text>
+                )}
+                <View style={styles.priceContainer}>
+                  <Text style={styles.priceText}>
+                    {rating}{' '}
+                    <AntDesign
+                      style={styles.ratingIcon}
+                      name={rating == 0 ? 'staro' : 'star'}
+                    />
+                  </Text>
+                  <Text
+                    style={styles.priceTextLight}
+                  >{`  (${noOfReviews})`}</Text>
+                </View>
+              </View>
+              <View style={styles.sameContainer}>
+                <Text style={styles.title2Text}>
+                  Same Product on Various Sites
+                </Text>
+                <ProductList
+                  products={same?.same}
+                  message="
+                    This product is not on other sites."
+                />
+              </View>
+              <View style={styles.sameContainer}>
+                <Text style={styles.title2Text}>Related Products</Text>
+                <Carousel renderFor="category" items={similar?.similar} />
+              </View>
             </View>
-            <Entypo style={styles.rightIcon} name="chevron-right" />
-          </View>
+            {pricegetter && <View style={{ marginBottom: 80 }}></View>}
+          </ScrollView>
 
-          <View style={styles.priceContainer}>
-            <Text style={styles.priceText}>Rs. {product.productPrice}</Text>
-          </View>
+          {pricegetter && (
+            <BottomButton
+              onPress={() => (stock > 0 ? handleCart() : null)}
+              text={stock > 0 ? 'Add to cart' : 'Not Avialable'}
+            />
+          )}
+
+          <Nav />
         </View>
-      </ScrollView>
-
-      <BottomButton
-        onPress={() => (product.isAvailable ? addToCart(product.id) : null)}
-        text={product.isAvailable ? 'Add to cart' : 'Not Avialable'}
-      />
-
-      <Nav />
-    </View>
+      )}
+    </>
   );
 };
 

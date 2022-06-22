@@ -14,7 +14,10 @@ const styles = StyleSheet.create({
     barStyle: 'dark-content',
   },
 
-  scrollViewContainer: { paddingHorizontal: 16, marginTop: 6 },
+  scrollViewContainer: {
+    paddingHorizontal: 16,
+    marginTop: 6,
+  },
 
   cartContainer: {
     flexDirection: 'row',
@@ -35,6 +38,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     marginVertical: 4,
     justifyContent: 'space-between',
+    alignItems: 'center',
   },
   titleText: {
     fontSize: 24,
@@ -44,12 +48,12 @@ const styles = StyleSheet.create({
     color: COLORS.black,
     maxWidth: '84%',
   },
-  titleIcon: {
-    fontSize: 24,
-    color: COLORS.blue,
-    marginRight: 6,
-    padding: 8,
-    borderRadius: 100,
+
+  seller: { width: '20%' },
+  sellerImage: {
+    width: '100%',
+    height: 80,
+    resizeMode: 'contain',
   },
 
   description: {
@@ -95,12 +99,18 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
 
-  priceContainer: {
-    paddingHorizontal: 16,
-    marginBottom: 60,
-    paddingBottom: 15,
+  priceRatingContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    padding: 16,
     borderBottomColor: COLORS.backgroundLight,
     borderBottomWidth: 1,
+  },
+  priceContainer: {
+    flexDirection: 'row',
+    // justifyContent: 'space-between',
+    alignItems: 'center',
   },
   priceText: {
     fontSize: 18,
@@ -108,6 +118,39 @@ const styles = StyleSheet.create({
     maxWidth: '85%',
     color: COLORS.black,
     marginBottom: 4,
+  },
+  priceTextLight: {
+    fontSize: 14,
+    maxWidth: '85%',
+    color: COLORS.gray,
+    marginBottom: 4,
+  },
+  priceTextCrossed: {
+    fontSize: 14,
+    maxWidth: '85%',
+    color: COLORS.gray,
+    marginBottom: 4,
+    textDecorationLine: 'line-through',
+  },
+  ratingIcon: {
+    color: COLORS.green,
+    fontSize: 18,
+  },
+
+  title2Text: {
+    fontSize: 16,
+    padding: 16,
+    paddingBottom: 0,
+    color: COLORS.black,
+    fontWeight: 'bold',
+    letterSpacing: 1,
+  },
+
+  sameContainer: {
+    // paddingHorizontal: 16,
+    paddingBottom: 15,
+    borderBottomColor: COLORS.backgroundLight,
+    borderBottomWidth: 1,
   },
 });
 

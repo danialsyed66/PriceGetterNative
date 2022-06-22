@@ -13,8 +13,11 @@ import {
   BottomButton,
 } from '../../../components';
 import { printDate } from '../../../utils';
+import { useAuthRedirect } from '../../../hooks';
 
 const Profile = () => {
+  useAuthRedirect();
+
   const { navigate } = useNavigation();
   const { user } = useSelector(state => state.auth);
 

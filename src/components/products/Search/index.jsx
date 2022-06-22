@@ -1,21 +1,30 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, TextInput, TouchableOpacity } from 'react-native';
 import { Feather } from 'react-native-vector-icons';
 
 import styles from './styles';
 import { COLORS } from '../../../utils';
 import TextButton from '../../TextButton';
+import { useNavigation } from '@react-navigation/native';
+import { useDispatch, useSelector } from 'react-redux';
+import { setFilters } from '../../../redux/actions/filterActions';
 
 const FormInput = ({
   containerStyle,
   placeholder,
   inputStyle,
-  onChange,
   secureTextEntry,
   keyboardType = 'default',
   autoCompleteType = 'off',
   autoCapitalize = 'none',
 }) => {
+  const { navigate } = useNavigation();
+  const dispatch = useDispatch();
+
+  const { query: globalQuery } = useSelector(state => state.filters);
+
+  const [query, setQuery] = useState(globalQuery);
+
   return (
     <View style={[styles.container, containerStyle]}>
       <View style={styles.inputContainer}>
@@ -27,7 +36,7 @@ const FormInput = ({
           keyboardType={keyboardType}
           autoCompleteType={autoCompleteType}
           autoCapitalize={autoCapitalize}
-          onChangeText={text => onChange(text)}
+          onChangeText={text => setQuery(text)}
         />
       </View>
 
@@ -35,6 +44,7 @@ const FormInput = ({
         style={styles.filterContainer}
         onPress={() => {
           //Open Filters Model
+          navigate('Filter');
         }}
       >
         {/* <Image source={ICONS.filter} style={styles.filterImage} /> */}
@@ -45,6 +55,10 @@ const FormInput = ({
         text="Search"
         containerStyle={styles.searchContainer}
         touchStyle={styles.searchTouch}
+        onPress={() => {
+          dispatch(setFilters({ query }));
+          navigate('Filter', { nav: true });
+        }}
       />
     </View>
   );
