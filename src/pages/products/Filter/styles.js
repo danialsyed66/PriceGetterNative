@@ -16,6 +16,12 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     padding: 16,
   },
+  itemsContainer: {
+    padding: 16,
+    // flexDirection: 'row',
+    // flexWrap: 'wrap',
+    // justifyContent: 'center',
+  },
 });
 
 export default styles;

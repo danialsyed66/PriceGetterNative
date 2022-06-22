@@ -1,5 +1,5 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { View, Text, ScrollView, StatusBar } from 'react-native';
+import React, { useEffect, useRef, useState } from 'react';
+import { View, ScrollView, StatusBar, FlatList } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 
 import styles from './styles';
@@ -10,16 +10,18 @@ import {
   Nav,
   Search,
   Header,
+  Product,
 } from '../../../components';
 import { getProducts } from '../../../redux/actions/productActions';
 import {
-  setFilters,
+  // setFilters,
   updateFilters,
 } from '../../../redux/actions/filterActions';
 import { useRoute } from '@react-navigation/native';
 
 const Filter = () => {
   const dispatch = useDispatch();
+  const scrollRef = useRef();
 
   const { products, loading, totalProducts } = useSelector(
     state => state.products
@@ -44,19 +46,19 @@ const Filter = () => {
 
   const [hasMore, setHasMore] = useState(true);
 
-  const [sale, setSale] = useState(onSale);
-  const [saleRange, setSaleRange] = useState(discount);
+  const [sale /* , setSale */] = useState(onSale);
+  const [saleRange /* , setSaleRange */] = useState(discount);
   const [currentPage, setCurrentPage] = useState(page);
-  const [priceRange, setPriceRange] = useState(price);
+  const [priceRange /* , setPriceRange */] = useState(price);
   const [rating /*,setRating*/] = useState(leastRating);
   const [seller, setSeller] = useState(sellers);
   const [category, setCategory] = useState(categories);
   const [sortObj, setSortObj] = useState({ val: sort[0], order: sort[1] });
 
-  const [priceRadio, setPriceRadio] = useState(0);
-  const [saleRadio, setSaleRadio] = useState(0);
-  const [sortRadioOrder, setSortRadioOrder] = useState(sortObj.order || 0);
-  const [sortRadioVal, setSortRadioVal] = useState(sortObj.val || 0);
+  // const [priceRadio, setPriceRadio] = useState(0);
+  // const [saleRadio, setSaleRadio] = useState(0);
+  // const [sortRadioOrder, setSortRadioOrder] = useState(sortObj.order || 0);
+  // const [sortRadioVal, setSortRadioVal] = useState(sortObj.val || 0);
   // const [categoriesCheckBox, setCategoriesCheckBox] = useState(
   //   CATEGORIES.map(({ val }) => category.includes(val))
   // );
@@ -64,28 +66,13 @@ const Filter = () => {
   //   SELLERS.map(({ val }) => seller.includes(val))
   // );
 
-  const observer = useRef();
+  const loadMore = () => {
+    if (hasMore) setCurrentPage(currentPage + 1);
+  };
 
   useEffect(() => {
     if (length >= totalProducts) setHasMore(false);
   }, [length, totalProducts]);
-
-  const observerCallBack = useCallback(
-    node => {
-      if (loading) return;
-
-      if (observer.current) observer.current.disconnect();
-
-      observer.current = new IntersectionObserver(([entry]) => {
-        if (entry.isIntersecting && hasMore) {
-          setCurrentPage(currentPage => currentPage + 1);
-        }
-      });
-
-      if (node) observer.current.observe(node);
-    },
-    [loading, hasMore]
-  );
 
   useEffect(() => {
     if (nav.current) {
@@ -128,7 +115,10 @@ const Filter = () => {
         })
       );
 
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      scrollRef.current?.scrollTo({
+        y: 0,
+        animated: true,
+      });
     }, 1000);
 
     return () => {
@@ -174,33 +164,61 @@ const Filter = () => {
     // discount,
   ]);
 
+  const renderHead = () => (
+    <>
+      <View style={styles.about}>
+        <Search />
+      </View>
+      <Category />
+    </>
+  );
+
   return (
     <View style={styles.container}>
       <Header title="Filter Page" />
-      <StatusBar style={styles.statusBar} />
-      <ScrollView showsVerticalScrollIndicator={false}>
-        <View style={styles.about}>
-          <Search />
-        </View>
-        <Category />
-        {length ? (
-          <>
-            {newReq && loading ? (
-              <Loader />
-            ) : (
-              <>
-                <Carousel
-                  items={products}
-                  observerCallBack={observerCallBack}
+      {/* <StatusBar style={styles.statusBar} /> */}
+      {/* <ScrollView
+        showsVerticalScrollIndicator={false}
+        ref={scrollRef}
+        contentContainerStyle={{
+          // justifyContent: 'center',
+          // alignItems: 'center',
+        }}
+      > */}
+      {length ? (
+        <>
+          {newReq && loading ? (
+            <Loader />
+          ) : (
+            // <View style={styles.itemsContainer}>
+            <FlatList
+              data={products}
+              onEndReached={loadMore}
+              renderItem={({ item }) => (
+                <Product
+                  product={item}
+                  containerStyle={{
+                    flex: 1,
+                  }}
                 />
-                {loading && <Loader />}
-              </>
-            )}
-          </>
-        ) : (
-          <Loader />
-        )}
-      </ScrollView>
+              )}
+              columnWrapperStyle={{ justifyContent: 'space-between' }}
+              numColumns={2}
+              style={styles.itemsContainer}
+              ListHeaderComponent={renderHead()}
+              ListFooterComponent={
+                <View style={{ marginBottom: 20 }}>
+                  {loading && <Loader />}
+                </View>
+              }
+            />
+            // </View>
+          )}
+        </>
+      ) : (
+        <Loader />
+      )}
+      {/* </ScrollView> */}
 
       <Nav />
     </View>

@@ -16,7 +16,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 const Product = ({
   product: { _id, name, price, discount, images, stock, seller, url },
-  callbackRef,
+  containerStyle,
 }) => {
   const isAvailable = stock === 'In Stock' || stock > 0;
   const color = isAvailable ? COLORS.green : COLORS.red;
@@ -45,7 +45,7 @@ const Product = ({
   return (
     <TouchableWithoutFeedback
       onPress={() => navigate('Product Details', { id: _id })}
-      ref={callbackRef}
+      style={containerStyle}
     >
       <View style={styles.container}>
         <View style={styles.imageContainer}>
