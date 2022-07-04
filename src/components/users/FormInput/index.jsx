@@ -18,6 +18,7 @@ const FormInput = ({
   autoCompleteType = 'off',
   autoCapitalize = 'none',
   errorMsg = '',
+  defaultValue,
 }) => {
   return (
     <View style={containerStyle}>
@@ -38,6 +39,7 @@ const FormInput = ({
           autoCompleteType={autoCompleteType}
           autoCapitalize={autoCapitalize}
           onChangeText={text => onChange(text)}
+          defaultValue={defaultValue}
         />
 
         {appendComponent}

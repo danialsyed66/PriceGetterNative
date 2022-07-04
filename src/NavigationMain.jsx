@@ -7,6 +7,7 @@ import {
   Home,
   ProductDetails,
   Cart,
+  ShippingInfo,
   Payment,
   SignIn,
   SignUp,
@@ -42,6 +43,7 @@ export default function App() {
         <Stack.Screen name={'Product Details'} component={ProductDetails} />
         <Stack.Screen name={'Filter'} component={Filter} />
         <Stack.Screen name={'Cart'} component={Cart} />
+        <Stack.Screen name={'Shipping Info'} component={ShippingInfo} />
         <Stack.Screen name={'Payment'} component={Payment} />
         <Stack.Screen name={'Sign In'} component={SignIn} />
         <Stack.Screen name={'Sign Up'} component={SignUp} />

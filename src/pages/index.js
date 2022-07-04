@@ -3,6 +3,7 @@ export { default as ProductDetails } from './products/ProductDetails';
 export { default as Filter } from './products/Filter';
 
 export { default as Cart } from './cart/Cart';
+export { default as ShippingInfo } from './cart/ShippingInfo';
 export { default as Payment } from './cart/Payment';
 
 export { default as SignIn } from './users/SignIn';

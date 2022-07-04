@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, ScrollView } from 'react-native';
-import asyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
-import { MaterialCommunityIcons } from 'react-native-vector-icons';
+// import { MaterialCommunityIcons } from 'react-native-vector-icons';
 import { useSelector } from 'react-redux';
 
 import styles from './styles';
@@ -29,11 +28,11 @@ const Cart = () => {
 
   const checkOut = async () => {
     try {
-      await asyncStorage.removeItem('cartItems');
+      // await asyncStorage.removeItem('cartItems');
 
-      alert('Success', 'Items will be Deliverd SOON!');
+      // alert('Success', 'Items will be Deliverd SOON!');
 
-      navigation.navigate('Home');
+      navigation.navigate('Shipping Info');
     } catch (err) {
       console.log(err);
       alert('Error', 'Could not place your order.');
@@ -55,7 +54,7 @@ const Cart = () => {
         </View>
 
         <View>
-          <View style={styles.infoContainer}>
+          {/* <View style={styles.infoContainer}>
             <Text style={styles.infoTitle}>Delivery Location</Text>
             <View style={styles.infoContent}>
               <View style={styles.infoContentText}>
@@ -94,22 +93,25 @@ const Cart = () => {
                 style={styles.nextIconContainer}
               />
             </View>
-          </View>
+          </View> */}
 
           <View style={styles.orderContainer}>
             <Text style={styles.infoTitle}>Order Info</Text>
             <View style={styles.orderContent}>
-              <Text style={styles.orderInfoTitle}>Subtotal</Text>
-              <Text style={styles.orderInfoText}>Rs. {totalPrice}</Text>
+              <Text style={styles.orderInfoTitle}>Units</Text>
+              <Text style={styles.orderInfoText}>
+                {totalUnits} {totalUnits === 1 ? '(Unit)' : '(Units)'}
+              </Text>
             </View>
-            <View style={styles.shippingContainer}>
+            {/* <View style={styles.shippingContainer}>
               <Text style={styles.orderInfoTitle}>Shipping Tax</Text>
               <Text style={styles.orderInfoText}>Rs. {totalPrice / 20}</Text>
-            </View>
+            </View> */}
             <View style={styles.infoContent}>
               <Text style={styles.orderInfoTitle}>Total</Text>
               <Text style={styles.total}>
-                Rs. {totalPrice + totalPrice / 20}
+                {/* Rs. {totalPrice + totalPrice / 20} */}
+                Rs. {totalPrice}
               </Text>
             </View>
           </View>
