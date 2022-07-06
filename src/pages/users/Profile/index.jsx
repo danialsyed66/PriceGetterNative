@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text } from 'react-native';
-import { MaterialCommunityIcons } from 'react-native-vector-icons';
+// import { MaterialCommunityIcons } from 'react-native-vector-icons';
 import { useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 
@@ -9,7 +9,7 @@ import {
   AuthLayout,
   Nav,
   Header,
-  IconButton,
+  // IconButton,
   BottomButton,
 } from '../../../components';
 import { printDate } from '../../../utils';
