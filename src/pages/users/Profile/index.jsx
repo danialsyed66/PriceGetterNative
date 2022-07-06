@@ -43,7 +43,7 @@ const Profile = () => {
           </View>
         </View>
 
-        <View style={styles.buttonsContainer}>
+        {/* <View style={styles.buttonsContainer}>
           <IconButton
             Icon={MaterialCommunityIcons}
             name="account-edit"
@@ -56,7 +56,7 @@ const Profile = () => {
             text="Change Password"
             onPress={() => navigate('Home')}
           />
-        </View>
+        </View> */}
       </AuthLayout>
 
       <BottomButton text="Wishlist" onPress={() => navigate('Wishlist')} />

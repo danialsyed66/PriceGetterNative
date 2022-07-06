@@ -12,7 +12,7 @@ import {
   Nav,
   TextButton,
 } from '../../../components';
-import { COLORS, validateEmail } from '../../../utils';
+import { COLORS, openUrl, validateEmail } from '../../../utils';
 import { login } from '../../../redux/actions/authActions';
 import { useCheckAuth } from '../../../hooks';
 
@@ -107,6 +107,9 @@ const SignIn = () => {
 
             <TextButton
               // onPress={() => navigate('Forgot Password')}
+              onPress={() =>
+                openUrl(`https://price-getter.netlify.app/forgotpassword`)
+              }
               text="Forgot Password?"
               containerStyle={styles.fogotPasswordComponent}
               touchStyle={null}
